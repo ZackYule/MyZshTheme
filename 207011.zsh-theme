@@ -80,9 +80,10 @@ if [[ -n "$SSH_CLIENT" || -n "$SSH2_CLIENT" ]]; then
 fi
 
 # SEGMENT/virtualenv_STATUS =============================================================
+
 function virtualenv_prompt() {
   local color="%{$fg_no_bold[cyan]%}";
-  local venv_prompt='‹ $(virtualenv_prompt_info)'
+  local venv_prompt='$(virtualenv_prompt_info)'
   echo "${color}${venv_prompt}${color_reset}";
 }
 
@@ -166,7 +167,7 @@ zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f
 # ==============================================================================
 
 VIRTUAL_ENV_DISABLE_PROMPT=0
-ZSH_THEME_VIRTUAL_ENV_PROMPT_PREFIX="%{$fg[cyan]%}"
+ZSH_THEME_VIRTUAL_ENV_PROMPT_PREFIX="%{$fg[cyan]‹ %}"
 ZSH_THEME_VIRTUAL_ENV_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_VIRTUALENV_PREFIX=$ZSH_THEME_VIRTUAL_ENV_PROMPT_PREFIX
 ZSH_THEME_VIRTUALENV_SUFFIX=$ZSH_THEME_VIRTUAL_ENV_PROMPT_SUFFIX
