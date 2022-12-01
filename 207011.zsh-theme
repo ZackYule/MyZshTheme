@@ -86,16 +86,6 @@ function virtualenv_prompt() {
   echo "${color}${venv_prompt}${color_reset}";
 }
 
-# SEGMENT/TIME =============================================================
-
-function real_time() {
-  local color="%{$fg_no_bold[yellow]%}";                    # color in PROMPT need format in %{XXX%} which is not same with echo
-  local time="$(date +%H:%M:%S)⌚️";
-  local color_reset="%{$reset_color%}";
-  echo "${color}${time}${color_reset}";
-}
-
-
 # UTILS ========================================================================
 
 setopt PROMPT_SUBST
@@ -121,7 +111,7 @@ printPsOneLimiter() {
 
 # ENV/VARIABLES/PROMPT_LINES ===================================================
 
-PROMPT="%F{236}${char_up_and_right_divider} ${ssh_marker} %f%F{80}%~%f $(real_time)$(prepareGitStatusLine) $(virtualenv_prompt)
+PROMPT="%F{236}${char_up_and_right_divider} ${ssh_marker} %f%F{80}%~%f %f%F{86}%D %T%f$(prepareGitStatusLine) $(virtualenv_prompt)
 %F{85} ${char_arrow}%f "
 
 RPROMPT=""
