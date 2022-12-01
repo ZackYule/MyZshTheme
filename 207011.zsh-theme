@@ -79,6 +79,23 @@ if [[ -n "$SSH_CLIENT" || -n "$SSH2_CLIENT" ]]; then
  ssh_marker="%F{115}SSH%f%F{236}:%f"
 fi
 
+# SEGMENT/virtualenv_STATUS =============================================================
+function virtualenv_prompt() {
+  local color="%{$fg_no_bold[cyan]%}";
+  local venv_prompt='‹ $(virtualenv_prompt_info)'
+  echo "${color}${venv_prompt}${color_reset}";
+}
+
+# SEGMENT/TIME =============================================================
+
+function real_time() {
+  local color="%{$fg_no_bold[yellow]%}";                    # color in PROMPT need format in %{XXX%} which is not same with echo
+  local time="$(date +%H:%M:%S)⌚️";
+  local color_reset="%{$reset_color%}";
+  echo "${color}${time}${color_reset}";
+}
+
+
 # UTILS ========================================================================
 
 setopt PROMPT_SUBST
@@ -104,7 +121,7 @@ printPsOneLimiter() {
 
 # ENV/VARIABLES/PROMPT_LINES ===================================================
 
-PROMPT="%F{236}${char_up_and_right_divider} ${ssh_marker} %f%F{80}%~%f$(prepareGitStatusLine)
+PROMPT="%F{236}${char_up_and_right_divider} ${ssh_marker} %f%F{80}%~%f $(real_time)$(prepareGitStatusLine) $(virtualenv_prompt)
 %F{85} ${char_arrow}%f "
 
 RPROMPT=""
@@ -157,3 +174,9 @@ zstyle ':completion:*:functions' ignored-patterns "_*"
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
 
 # ==============================================================================
+
+VIRTUAL_ENV_DISABLE_PROMPT=0
+ZSH_THEME_VIRTUAL_ENV_PROMPT_PREFIX="%{$fg[cyan]%}"
+ZSH_THEME_VIRTUAL_ENV_PROMPT_SUFFIX="%{$reset_color%}"
+ZSH_THEME_VIRTUALENV_PREFIX=$ZSH_THEME_VIRTUAL_ENV_PROMPT_PREFIX
+ZSH_THEME_VIRTUALENV_SUFFIX=$ZSH_THEME_VIRTUAL_ENV_PROMPT_SUFFIX
