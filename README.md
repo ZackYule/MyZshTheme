@@ -18,4 +18,8 @@ mv ~/207011-tools/207011.zsh-theme $ZSH/themes/207011.zsh-theme
 
 3. Go to your `~/.zshrc` file and set `ZSH_THEME=207011`
 
----
+### Font Recommendation
+
+1. **[PowerlineFonts](https://github.com/powerline/fonts)**
+
+2. **[FiraCode](https://github.com/tonsky/FiraCode)**
